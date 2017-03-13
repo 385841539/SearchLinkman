@@ -20,12 +20,12 @@ public class IndexWord extends View {
     private String[] words = {"A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
             "W", "X", "Y", "Z"};
-    private TextPaint textPaint;
-    private int everywidth;
-    private int length;
-    private int everyheght;
-    private Rect rect;
-    private int index = -1;
+    private TextPaint textPaint;//文本画笔
+    private int everywidth;//每一个字母单元格的宽度
+    private int length;//words长度，
+    private int everyheght;//每一个字母单元格的高度
+    private Rect rect;//矩形
+    private int index = -1;//用于touchevent中记录点击的是哪个字幕
 
     public IndexWord(Context context) {
         this(context, null);
@@ -53,17 +53,9 @@ public class IndexWord extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_DOWN|MotionEvent.ACTION_MOVE:
                 index = (int) (event.getY() / everyheght);
                 if (indexPressWord != null && index >= 0) {
-                    indexPressWord.setIndexPressWord(words[index]);
-                }
-                invalidate();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                index = (int) (event.getY() / everyheght);
-                if (indexPressWord != null && index >= 0) {
-
                     indexPressWord.setIndexPressWord(words[index]);
                 }
                 invalidate();
@@ -72,7 +64,6 @@ public class IndexWord extends View {
                 index = -1;
                 invalidate();
                 break;
-
             default:
         }
         return true;
@@ -92,9 +83,8 @@ public class IndexWord extends View {
             } else {
                 textPaint.setColor(Color.BLACK);
             }
-            canvas.drawText(word, everywidth / 2 - width / 2, everyheght * (i + 1) - height / 2, textPaint);
+            canvas.drawText(word, everywidth / 2 - width / 2, everyheght * i+(everyheght/2+ height / 2), textPaint);
         }
-
 
     }
 
