@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initData();
-        initview();
+        initData();//初始化数据
+        initview();//初始化布局
     }
 
     private void initview() {
@@ -50,9 +50,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void setIndexPressWord(String word) {
 
-                getWord(word);
+                getWord(word);//让recycleview跳动到此字幕的位置
                 tvMain.setVisibility(View.VISIBLE);
                 tvMain.setText(word);
+                /**
+                 * 延缓两秒钟让textview消失
+                 */
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -63,9 +66,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 此方法是让recycleview滑动到指定位置，并且是让其到顶部
+     * @param manager
+     * @param mRecyclerView
+     * @param n
+     */
     public void MoveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView, int n) {
-
-
         int firstItem = manager.findFirstVisibleItemPosition();
         int lastItem = manager.findLastVisibleItemPosition();
         if (n <= firstItem) {
