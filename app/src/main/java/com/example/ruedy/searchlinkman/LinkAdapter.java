@@ -17,17 +17,15 @@ import static android.R.attr.y;
  */
 public class LinkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context mContext;
+    private Context mContext;//上下文
     private LayoutInflater inflater;
-    private ArrayList<Person> persons;
+    private ArrayList<Person> persons;//人类
     private int index = -1;
-    private RecyclerView recyclerView;
 
 
-    public LinkAdapter(Context mContext, ArrayList<Person> persons, RecyclerView recyclerView) {
+    public LinkAdapter(Context mContext, ArrayList<Person> persons) {
         this.mContext = mContext;
         this.persons = persons;
-        this.recyclerView = recyclerView;
         inflater = LayoutInflater.from(mContext);
     }
 

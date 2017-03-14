@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private void initview() {
         rvMain = ((RecyclerView) findViewById(R.id.rv_main));
         rvMain.setLayoutManager(linearmanger = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvMain.setAdapter(linkadapter = new LinkAdapter(this, persons, rvMain));
+        rvMain.setAdapter(linkadapter = new LinkAdapter(this, persons));
         iwMain = ((IndexWord) findViewById(R.id.iw_main));
         tvMain = ((TextView) findViewById(R.id.tv_main));
         setTvWord();
@@ -66,8 +66,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+    private void getWord(String word) {
+
+        for (int i = 0; i < persons.size(); i++) {
+            String substring = persons.get(i).getPinyin().substring(0, 1);
+            if (substring.equals(word) && persons.size() >= i) {
+                //如果person拼音的首位与word相同，则实现效果,并退出循环
+                View childAt = rvMain.getChildAt(i);
+                MoveToPosition(linearmanger, rvMain, i);
+                break;
+            }
+        }
+    }
+
     /**
      * 此方法是让recycleview滑动到指定位置，并且是让其到顶部
+     *
      * @param manager
      * @param mRecyclerView
      * @param n
@@ -84,21 +100,6 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.scrollToPosition(n);
         }
 
-    }
-
-    private void getWord(String word) {
-        Log.e("childCount1", "childCount1: " + childCount1);
-
-        for (int i = 0; i < persons.size(); i++) {
-            String substring = persons.get(i).getPinyin().substring(0, 1);
-
-            if (substring.equals(word) && persons.size() >= i) {
-                Log.e("substring", "substring: " + substring);
-                View childAt = rvMain.getChildAt(i);
-                MoveToPosition(linearmanger, rvMain, i);
-                break;
-            }
-        }
     }
 
     private void initData() {
