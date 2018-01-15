@@ -8,7 +8,7 @@ public class Person {
 
     public Person(String name){
         this.name = name;
-        this.pinyin = PinYinUtils.getPinYin(name);
+        this.pinyin = PinYinUtils.getPinYin(name.substring(0,1));
     }
 
     public String getPinyin() {
